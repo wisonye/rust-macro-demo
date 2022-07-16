@@ -98,4 +98,14 @@ macro_rules! my_vec {
     // ($($element: expr) >>> +) => {{
     // }};
 
+
+
+    ($element: expr; $count: expr) => {{
+        let mut temp_arr = Vec::new();
+        for _ in 0..$count {
+            temp_arr.push($element);
+        }
+
+        temp_arr
+    }}
 }

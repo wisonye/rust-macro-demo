@@ -41,4 +41,7 @@ fn main() {
     let user_name = "wison";
     let password = "my_password";
     let login_result = service.login(&user_name, &password);
+
+    let init_arr = my_vec!(88; 10);
+    println!("init_arr: {init_arr:#?}");
 }

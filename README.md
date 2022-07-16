@@ -8,6 +8,38 @@ Macro is just a handy way to produce source code, then you don't need to write t
 It looks like a handy function but is more flexible on syntax:)
 
 
+</br>
+
+There are 2 kind of macros in `Rust`:
+
+- Declarative Macros:
+
+    This is the macro we're talking about in this demo, it's simply replace
+    the code block you provided before the compilation phase.
+
+    </br>
+
+
+- Procedural Macros:
+
+    Procedural macros is more powerful but more complicated. It comes in one
+    of three flavors:
+
+    - Function-like macros - `custom!(...)`
+
+    - Derive macros - `#[derive(CustomDerive)]`
+
+    - Attribute macros - `#[CustomAttribute]`
+
+    [FlattenTree](https://github.com/wisonye/flatten-tree) is an example for
+    writing procedural marco.
+
+    </br>
+
+
+Let's take a look the macro syntax:
+
+
 ```rust
 //
 // `#[macro_export]` is equal to pub the following macro.
@@ -142,6 +174,48 @@ let one_element_arr_2 = {
 let one_element_arr_3 = {
     let mut temp_arr = Vec::new();
     temp_arr.push("Wison".to_string());
+    temp_arr
+};
+```
+
+</br>
+
+
+### Init style macro
+
+Give a init value and a count to repeat, it's very common case to init a
+collection by macro.
+
+```rust
+macro_rules! my_vec {{
+    ($element: expr; $count: expr) => {{
+        let mut temp_arr = Vec::new();
+        for _ in 0..$count {
+            temp_arr.push($element);
+        }
+
+        temp_arr
+    }}
+}}
+```
+</br>
+
+Then you can use the macro like this:
+
+```rust
+let init_arr = my_vec!(88; 10);
+```
+
+</br>
+
+It will expand to the following source code before the compilation:
+
+```rust
+let init_arr = {
+    let mut temp_arr = Vec::new();
+    for _ in 0..10 {
+        temp_arr.push(88);
+    }
     temp_arr
 };
 ```
