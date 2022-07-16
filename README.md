@@ -14,16 +14,15 @@ There are 2 kind of macros in `Rust`:
 
 - Declarative Macros:
 
-    This is the macro we're talking about in this demo, it's simply replace
-    the code block you provided before the compilation phase.
+    This is the macro we’re talking about in this demo, it simply replaces the pattern input with the substitution code block you provided, and that happens before the compilation phase.
 
     </br>
 
 
 - Procedural Macros:
 
-    Procedural macros is more powerful but more complicated. It comes in one
-    of three flavors:
+    Procedural macro does the same thing as declarative macro, and it's more
+    powerful but more complicated. It comes in one of three flavors:
 
     - Function-like macros - `custom!(...)`
 
@@ -74,8 +73,8 @@ All valid `syntax type`:
 - `expr`: an expression
 - `ty`: a type
 - `ident`: an identifier
-- `path`: a path (e.g. foo, ::std::mem::replace, transmute::<_, int>, …)
-- `meta`: a meta item; the things that go inside #[...] and #![...] attributes
+- `path`: a path (e.g. foo, `::std::mem::replace`, `transmute::<_, int>`, …)
+- `meta`: a meta item; the things that go inside `#[...]` and `#![...]` attributes
 - `tt`: a single token tree
 
 
