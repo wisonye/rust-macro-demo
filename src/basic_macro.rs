@@ -61,4 +61,41 @@ macro_rules! my_vec {
         temp_arr.push($element);
         temp_arr
     }};
+
+    // Repeatable
+    //
+    // The `$(var_name: syntax type), repeating part description` syntax is
+    // used to present the repeatable patterns. Basically, it's saying:
+    //
+    // - The `$()` part is repeatable and separated by the `,` delimiter
+    // - For the repeating part description, is the same with regex: ?/+/*
+    //
+    // Also, you can use `$() repeating part description` syntax in the code
+    // block to repeat like for `for loop`
+    //
+    ($($element: expr), +) => {{
+        let mut temp_arr = Vec::new();
+        $(temp_arr.push($element);)+
+        temp_arr
+    }};
+
+    //
+    // Pay attention that:
+    //
+    // The pattern syntax actually is very loosely, you can define
+    // your own syntax as want, if it doesn't violate the limitation.
+    //
+    // For example, you can invent the following syntax to archive the same
+    // purpose with the above matching rule:
+    //
+    ($($element: expr) => +) => {{
+        let mut temp_arr = Vec::new();
+        $(temp_arr.push($element);)+
+        temp_arr
+    }};
+
+    // But this doesn't work, as `>>>` is not allowed to show up after a expression:)
+    // ($($element: expr) >>> +) => {{
+    // }};
+
 }
