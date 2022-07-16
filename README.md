@@ -256,6 +256,68 @@ macro_rules! my_vec {
 }
 ```
 
+</br>
+
+
+### Implment trait for struct
+
+You can use macro to implement a trait in a handy way, for example:
+
+```rust
+// Declare the Login trait
+pub trait Login {
+    fn login(&self, user_name: &str, password: &str) -> bool;
+}
+
+#[macro_export]
+macro_rules! impl_login {
+
+    ($target_struct: ty) => {{
+        impl crate::struct_macro_sample::Login for $target_struct {
+            fn login(&self, user_name: &str, password: &str) -> bool {
+                // Sample logic
+                user_name.trim() == password.trim()
+            }
+        }
+    }};
+}
+```
+
+</br>
+
+
+Then you can use the macro like this:
+
+```rust
+struct AuthService {};
+
+impl_login!(AuthService);
+
+// let service = AuthService {};
+// let user_name = "wison";
+// let password = "my_password";
+// let login_result = service.login(&user_name, &password);
+```
+
+</br>
+
+It will expand to the following source code before the compilation:
+
+```rust
+struct AuthService {};
+{
+    impl crate::struct_macro_sample::Login for AuthService {
+        fn login(&self, user_name: &str, password: &str) -> bool {
+            user_name.trim() == password.trim()
+        }
+    }
+};
+
+// let service = AuthService {};
+// let user_name = "wison";
+// let password = "my_password";
+// let login_result = service.login(&user_name, &password);
+```
 
 
 

@@ -1,4 +1,7 @@
 mod basic_macro;
+mod struct_macro_sample;
+
+use struct_macro_sample::Login;
 
 //
 // About the macro, you can think like this:
@@ -8,7 +11,6 @@ mod basic_macro;
 // It looks a function but more flexible:)
 //
 fn main() {
-
     //
     // Use `cargo watch -c --exec "expand"` to see the macro expands result:)
     //
@@ -30,4 +32,13 @@ fn main() {
 
     let repeatable_arr_2 = my_vec!("A" => "B" => "C" => "D");
     println!("repeatable_arr_2: {repeatable_arr_2:#?}");
+
+    struct AuthService {};
+
+    impl_login!(AuthService);
+
+    let service = AuthService {};
+    let user_name = "wison";
+    let password = "my_password";
+    let login_result = service.login(&user_name, &password);
 }
