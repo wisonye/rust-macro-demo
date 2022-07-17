@@ -193,9 +193,15 @@ macro_rules! my_vec {{
         // more efficient.
         let count = $count;
         let mut temp_arr = Vec::with_capacity(count);
-        for _ in 0..count {
-            temp_arr.push($element);
-        }
+
+        // By using `extend` instead of `push in a for loop`, we can
+        // avoid the vector pointer moving and bounds checking every
+        // time, it's more efficient!!!
+        //
+        // for _ in 0..count {
+        //     temp_arr.push($element);
+        // }
+        temp_arr.extend(std::iter::repeat($element).take(count));
 
         temp_arr
     }}
