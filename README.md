@@ -377,6 +377,7 @@ pub trait Login {
 macro_rules! impl_login {
 
     ($target_struct: ty) => {{
+        // `$crate` always point to the macro caller's crate
         impl crate::struct_macro_sample::Login for $target_struct {
             fn login(&self, user_name: &str, password: &str) -> bool {
                 // Sample logic
