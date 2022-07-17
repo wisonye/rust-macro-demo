@@ -54,7 +54,7 @@ macro_rules! MACRO_NAME_HERE {
 
 </br>
 
-Each `$rule` looks like this:  `($pattern) => { source code block }`
+Each `$rule` looks like this:  `($pattern) => { source code block };`
 
 It means that you give the `($pattern)` as the macro input, and it expands
 to the source code block you provided as the macro output.
@@ -126,9 +126,9 @@ the `{}`. For example, all the following syntax are valid:
 
 
 ```rust
-($pattern) => ({ code block })
-($pattern) => [{ code block }]
-($pattern) => {{ code block }} // This is the default recommended.
+($pattern) => ({ code block });
+($pattern) => [{ code block }];
+($pattern) => {{ code block }}; // This is the default recommended.
 ```
 
 </br>
@@ -204,7 +204,7 @@ macro_rules! my_vec {{
         temp_arr.extend(std::iter::repeat($element).take(count));
 
         temp_arr
-    }}
+    }};
 }}
 ```
 

@@ -117,5 +117,5 @@ macro_rules! my_vec {
         temp_arr.extend(std::iter::repeat($element).take(count));
 
         temp_arr
-    }}
+    }};
 }
