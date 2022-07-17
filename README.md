@@ -188,8 +188,12 @@ collection by macro.
 ```rust
 macro_rules! my_vec {{
     ($element: expr; $count: expr) => {{
-        let mut temp_arr = Vec::new();
-        for _ in 0..$count {
+        // By using `with_capacity` instead of `new`, we can avoid
+        // keeping allocating the Vector in a large $count case, it's
+        // more efficient.
+        let count = $count;
+        let mut temp_arr = Vec::with_capacity(count);
+        for _ in 0..count {
             temp_arr.push($element);
         }
 
@@ -211,10 +215,9 @@ It will expand to the following source code before the compilation:
 
 ```rust
 let init_arr = {
-    let mut temp_arr = Vec::new();
-    for _ in 0..10 {
-        temp_arr.push(88);
-    }
+    let count = 10;
+    let mut temp_arr = Vec::with_capacity(count);
+    temp_arr.extend(std::iter::repeat(88).take(count));
     temp_arr
 };
 ```

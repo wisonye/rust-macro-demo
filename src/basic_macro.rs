@@ -101,10 +101,20 @@ macro_rules! my_vec {
 
 
     ($element: expr; $count: expr) => {{
-        let mut temp_arr = Vec::new();
-        for _ in 0..$count {
-            temp_arr.push($element);
-        }
+        // By using `with_capacity` instead of `new`, we can avoid
+        // keeping allocating the Vector in a large $count case, it's
+        // more efficient.
+        let count = $count;
+        let mut temp_arr = Vec::with_capacity(count);
+
+        // By using `extend` instead of `push in a for loop`, we can
+        // avoid the vector pointer moving and bounds checking every
+        // time, it's more efficient!!!
+        //
+        // for _ in 0..count {
+        //     temp_arr.push($element);
+        // }
+        temp_arr.extend(std::iter::repeat($element).take(count));
 
         temp_arr
     }}
