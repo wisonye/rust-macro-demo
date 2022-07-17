@@ -207,6 +207,7 @@ macro_rules! my_vec {{
     }}
 }}
 ```
+
 </br>
 
 Then you can use the macro like this:
@@ -226,6 +227,27 @@ let init_arr = {
     temp_arr.extend(std::iter::repeat(88).take(count));
     temp_arr
 };
+```
+
+</br>
+
+
+But one thing you need to pay attention to by using `std::iter::repeat($element)`
+instead of `push in a for loop` is that `repeat` asks for the `$element`
+implements the `Clone` trait, but the macro doesn't have a trait bounds. So in the
+following case, it will pass the `cargo expand` but fail in `cargo run`:
+
+```rust
+#[derive(Debug)]
+struct Foo {}
+let init_arr = my_vec!(Foo {}; 10);
+println!("init_arr: {init_arr:#?}");
+```
+
+And the error will be 
+
+```bash
+the trait `Clone` is not implemented for `Foo`
 ```
 
 </br>
